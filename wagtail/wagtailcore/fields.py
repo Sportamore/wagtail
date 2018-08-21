@@ -5,7 +5,7 @@ import json
 from django.db import models
 from django import forms
 from django.core.serializers.json import DjangoJSONEncoder
-from django.utils.six import with_metaclass, string_types
+from django.utils.six import string_types
 
 from wagtail.wagtailcore.rich_text import DbWhitelister, expand_db_html
 from wagtail.utils.widgets import WidgetWithScript
@@ -41,7 +41,7 @@ class RichTextField(models.TextField):
         return super(RichTextField, self).formfield(**defaults)
 
 
-class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
+class StreamField(models.Field):
     def __init__(self, block_types, **kwargs):
         if isinstance(block_types, Block):
             self.stream_block = block_types
@@ -108,6 +108,9 @@ class StreamField(with_metaclass(models.SubfieldBase, models.Field)):
             return value.raw_text
         else:
             return json.dumps(self.stream_block.get_prep_value(value), cls=DjangoJSONEncoder)
+
+    def from_db_value(self, value, expression, connection, context):
+        return self.to_python(value)
 
     def formfield(self, **kwargs):
         """
