@@ -20,7 +20,7 @@ from taggit.managers import TaggableManager
 from wagtail.wagtailadmin import widgets
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.utils import camelcase_to_underscore, resolve_model_string
-from wagtail.utils.compat import get_related_model, get_related_parent_model
+from wagtail.utils.compat import get_related_model
 
 
 # Form field properties to override whenever we encounter a model field
@@ -526,7 +526,7 @@ class BaseChooserPanel(BaseFieldPanel):
 
     def get_chosen_item(self):
         field = self.instance._meta.get_field(self.field_name)
-        related_model = get_related_parent_model(field.remote_field)
+        related_model = field.rel.model
         try:
             return getattr(self.instance, self.field_name)
         except related_model.DoesNotExist:
@@ -579,7 +579,7 @@ class BasePageChooserPanel(BaseChooserPanel):
 
                 cls._target_content_type = list(ContentType.objects.get_for_models(*target_models).values())
             else:
-                target_model = cls.model._meta.get_field(cls.field_name).rel.to
+                target_model = cls.model._meta.get_field(cls.field_name).rel.model
                 cls._target_content_type = [ContentType.objects.get_for_model(target_model)]
 
         return cls._target_content_type
