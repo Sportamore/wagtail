@@ -15,16 +15,22 @@ from wagtail.wagtailusers.models import UserProfile
 from wagtail.utils.compat import get_related_model
 
 
+def get_all_related_objects(meta):
+    return [f for f in meta.get_fields(include_hidden=True)
+            if (f.one_to_many or f.one_to_one) and f.auto_created]
+
+
 def get_object_usage(obj):
     "Returns a queryset of pages that link to a particular object"
 
     pages = Page.objects.none()
 
     # get all the relation objects for obj
-    relations = type(obj)._meta.get_all_related_objects(
-        include_hidden=True,
-        include_proxy_eq=True
-    )
+    relations = get_all_related_objects(type(obj)._meta)
+    # relations = .get_all_related_objects(
+    #     include_hidden=True,
+    #     include_proxy_eq=True
+    # )
     for relation in relations:
         related_model = get_related_model(relation)
 

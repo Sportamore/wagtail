@@ -526,7 +526,7 @@ class BaseChooserPanel(BaseFieldPanel):
 
     def get_chosen_item(self):
         field = self.instance._meta.get_field(self.field_name)
-        related_model = get_related_parent_model(field.related)
+        related_model = get_related_parent_model(field.remote_field)
         try:
             return getattr(self.instance, self.field_name)
         except related_model.DoesNotExist:
