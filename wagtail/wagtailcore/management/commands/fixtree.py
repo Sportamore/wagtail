@@ -12,13 +12,16 @@ from wagtail.wagtailcore.models import Page
 
 class Command(BaseCommand):
     help = "Checks for data integrity errors on the page tree, and fixes them where possible."
-    base_options = (
-        make_option(
-            '--noinput', action='store_false', dest='interactive', default=True,
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--noinput',
+            action='store_false',
+            dest='interactive',
+            default=True,
             help='If provided, any fixes requiring user interaction will be skipped.'
-        ),
-    )
-    option_list = BaseCommand.option_list + base_options
+        )
+
 
     def numberlist_to_string(self, numberlist):
         # Converts a list of numbers into a string

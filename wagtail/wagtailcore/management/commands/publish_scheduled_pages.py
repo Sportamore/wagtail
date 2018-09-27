@@ -21,15 +21,15 @@ def revision_date_expired(r):
 
 
 class Command(BaseCommand):
-    option_list = BaseCommand.option_list + (
-        make_option(
+
+    def add_arguments(self, parser):
+        parser.add_argument(
             '--dryrun',
             action='store_true',
             dest='dryrun',
             default=False,
             help='Dry run -- don\'t change anything.'
-        ),
-    )
+        )
 
     def handle(self, *args, **options):
         dryrun = False
