@@ -16,7 +16,7 @@ from django.db.models.signals import pre_delete, pre_save
 from django.dispatch.dispatcher import receiver
 from django.utils.safestring import mark_safe
 from django.utils.six import BytesIO, text_type
-from django.forms.widgets import flatatt
+from django.forms.utils import flatatt
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
