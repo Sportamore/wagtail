@@ -2,10 +2,10 @@
 {% load compress static wagtailadmin_tags %}
 
 {% block css %}
-    {% compress css %}
-        <link rel="stylesheet" href="{% static 'wagtailadmin/css/vendor/jquery-ui/jquery-ui-1.10.3.verdant.css' %}" />
-        <link rel="stylesheet" href="{% static 'wagtailadmin/css/core.css' %}" type="text/css" />
-    {% endcompress %}
+    <!--{% compress css %}-->
+        <!--<link rel="stylesheet" href="{% static 'wagtailadmin/css/vendor/jquery-ui/jquery-ui-1.10.3.verdant.css' %}" />-->
+        <!--<link rel="stylesheet" href="{% static 'wagtailadmin/css/core.css' %}" type="text/css" />-->
+    <!--{% endcompress %}-->
 
     {% block extra_css %}{% endblock %}
 {% endblock %}
@@ -16,7 +16,7 @@
 
 {% block js %}
     
-    {% compress js %}
+    <!--{% compress js %}-->
         <!--<script src="{% static 'wagtailadmin/js/vendor/jquery-1.10.3.js' %}"></script>-->
         <!--<script src="{% static 'wagtailadmin/js/vendor/jquery-ui-1.10.3.js' %}"></script>-->
         <!--<script src="{% static 'wagtailadmin/js/vendor/jquery.datetimepicker.js' %}"></script>-->
@@ -27,7 +27,7 @@
         <!--<script src="{% static 'wagtailadmin/js/vendor/jquery.dlmenu.js' %}"></script>-->
         <!--<script src="{% static 'wagtailadmin/js/core.js' %}"></script>-->
         <!--{% main_nav_js %}-->
-    {% endcompress %}
+    <!--{% endcompress %}-->
     
     {% block extra_js %}{% endblock %}
 {% endblock %}
